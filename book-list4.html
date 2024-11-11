@@ -78,11 +78,11 @@ function searchBook() {
 
           if (results.length > 0) {
             results.forEach((result, index) => {
-              // 각각의 책 정보를 고유하게 처리
-              searchResult.innerHTML += `
-        찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: ${result.author}
-        <button onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>
-      `;
+            // 각각의 책 정보를 고유하게 처리
+            searchResult.innerHTML += `
+            찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: ${result.author}
+            <button onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>
+            `;
             });
           } else {
             searchResult.textContent = "해당 책을 찾을 수 없습니다.";
@@ -97,16 +97,38 @@ function searchBook() {
 
         // 책 목록을 반복하여 화면에 추가
         books.forEach((book, index) => {
-          const bookDiv = document.createElement("div");
-          bookDiv.textContent = `책 이름: ${book.name} | 출판사: ${book.from} | 가격: ${book.value} | 저자: ${book.author}`;
-          bookListContainer.appendChild(bookDiv);
+          const book_case = document.createElement("div");
+          book_case.classList.add("book")
+          
+          const book_info = document.createElement("div");
+          book_info.textContent = `책 이름: ${book.name} | 출판사: ${book.from} | 가격: ${book.value} | 저자: ${book.author}`;
+          book_info.classList.add("book_info")
+          book_case.appendChild(book_info);
 
-          const addToCartButton = document.createElement("button");
-          addToCartButton.textContent = "장바구니에 담기";
-          bookDiv.appendChild(addToCartButton);
+          const book_tools = document.createElement("div");
+          book_tools.classList.add("tools")
+
+
+          const cart = document.createElement("button");
+          const info = document.createElement("button");
+
+          cart.classList.add("cart")
+          info.classList.add("info")
+
+          cart.textContent = `장바구니`;
+          info.textContent = `자세히보기`;
+
+          book_tools.appendChild(info);
+          book_tools.appendChild(cart);
+          book_case.appendChild(book_tools);
+
+          bookListContainer.appendChild(book_case);
+
+          // cart.textContent = "장바구니에 담기";
+          // book_case.appendChild(cart);
 
           // "장바구니에 담기" 버튼 클릭 시 addBook 호출
-          addToCartButton.onclick = function () {
+          cart.onclick = function () {
             addBook(book);
           };
         });

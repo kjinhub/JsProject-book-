@@ -11,6 +11,52 @@ body {
   box-sizing: border-box;
 }
 
+/* aa2edit */
+.book{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.book_info{
+  height: 100%;
+  margin: 0;
+
+}
+.tools{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  padding: 0.5rem;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.cart{
+  background-color: #28a745;
+
+}
+.info{
+  background-color: black;
+  margin-right: 0.5rem;
+}
+.info:hover{
+  background-color: grey;
+
+  /* filter: invert(100%); */
+}
+/* aa2edit */
+
+
+
 body {
   font-family: Arial, sans-serif;
 }
@@ -103,15 +149,7 @@ input[type="button"]:hover {
   color: #555;
 }
 
-button {
-  padding: 6px 12px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
+
 
 button:hover {
   background-color: #218838;
@@ -122,16 +160,16 @@ button:hover {
   margin-top: 20px;
 }
 
+/* 정렬좀 하고 살아 */
+/* 지피티 새끼 마진 좆같이 주네 */
 #book-list-container div {
   padding: 8px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
 }
 
 #book-list-container button {
-  margin-top: 8px;
+  /* margin-top: 8px; */
 }
 
 /* 장바구니 스타일 */
