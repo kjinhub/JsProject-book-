@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <link rel="stylesheet" href="mainN.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>중고 교재 거래 사이트</title>
+    <style>
+      /* 기본 스타일 */
+    </style>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header>
+      <section class="login" id="signUpSection">
+        <a href="javascript:void(0)" id="signU" onclick="showSignUpForm()"
+          >회원가입</a
+        >
+      </section>
+      <section class="login" id="signInSection">
+        <a href="javascript:void(0)" id="signI" onclick="showSignInForm()"
+          >로그인</a
+        >
+      </section>
+      <section class="login" id="logoutSection" style="display: none">
+        <span id="userIdDisplay"></span>
+        <a href="javascript:void(0)" id="logOut" onclick="logout()">로그아웃</a>
+      </section>
+      <h1>중고 교재 거래 사이트</h1>
+      <nav>
+        <a href="main3.html">홈</a>
+        <a href="book-list4.html">교재 목록</a>
+        <a href="cart.html">장바구니</a>
+      </nav>
+    </header>
+
+    <!-- 회원가입 폼 -->
+    <div id="signUpForm" style="display: none">
+      <h2>회원가입</h2>
+      <input type="text" id="signUpId" placeholder="아이디" required />
+      <input
+        type="password"
+        id="signUpPassword"
+        placeholder="비밀번호"
+        required
+      />
+      <button onclick="signUp()">회원가입</button>
+      <button onclick="hideSignUpForm()">취소</button>
+    </div>
+
+    <!-- 로그인 폼 -->
+    <div id="signInForm" style="display: none">
+      <h2>로그인</h2>
+      <input type="text" id="signInId" placeholder="아이디" required />
+      <input
+        type="password"
+        id="signInPassword"
+        placeholder="비밀번호"
+        required
+      />
+      <button onclick="signIn()">로그인</button>
+      <button onclick="hideSignInForm()">취소</button>
+    </div>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="container">
+      <h2>교재 등록</h2>
+      <div>
+        <div>
+          <label for="bookName">책 이름</label>
+          <input
+            type="text"
+            id="bookName"
+            placeholder="책 제목을 입력하세요."
+          />
+        </div>
+        <div>
+          <label for="bookFrom">출판사</label>
+          <input type="text" id="bookFrom" placeholder="출판사를 입력하세요." />
+        </div>
+        <div>
+          <label for="bookValue">가격</label>
+          <input
+            type="text"
+            id="bookValue"
+            placeholder="책 가격을 입력하세요."
+          />
+        </div>
+        <div>
+          <label for="bookAuthor">저자</label>
+          <input
+            type="text"
+            id="bookAuthor"
+            placeholder="책 저자를 입력하세요."
+          />
+        </div>
+
+        <button onclick="addbook()">등록</button>
+      </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+      <p>&copy; 2024 중고 교재 거래 사이트. 모든 권리 보유.</p>
+    </footer>
+
+    <script>
+      // 초기화 시 로그인 상태 체크
+      window.onload = function () {
+        const isLoggedIn = localStorage.getItem("loggedIn");
+        const userId = localStorage.getItem("userId");
+
+        if (isLoggedIn === "true") {
+          document.getElementById("signUpSection").style.display = "none";
+          document.getElementById("signInSection").style.display = "none";
+          document.getElementById("logoutSection").style.display = "block";
+
+          // 사용자 아이디 표시
+          document.getElementById("userIdDisplay").innerText = `${userId} 님 `;
+        } else {
+          document.getElementById("signUpSection").style.display = "block";
+          document.getElementById("signInSection").style.display = "block";
+          document.getElementById("logoutSection").style.display = "none";
+        }
+      };
+
+      // 회원가입
+      function signUp() {
+        const id = document.getElementById("signUpId").value;
+        const password = document.getElementById("signUpPassword").value;
+
+        if (!id || !password) {
+          alert("아이디와 비밀번호를 입력하세요.");
+          return;
+        }
+
+        // localStorage에 회원 정보 저장
+        localStorage.setItem("userId", id);
+        localStorage.setItem("userPassword", password);
+
+        alert("회원가입이 완료되었습니다!");
+        hideSignUpForm();
+      }
+
+      // 로그인
+      function signIn() {
+        const id = document.getElementById("signInId").value;
+        const password = document.getElementById("signInPassword").value;
+        const storedId = localStorage.getItem("userId");
+        const storedPassword = localStorage.getItem("userPassword");
+
+        if (id === storedId && password === storedPassword) {
+          localStorage.setItem("loggedIn", "true");
+          alert("로그인 성공!");
+          location.reload(); // 페이지 새로고침하여 로그인 상태 반영
+        } else {
+          alert("아이디 또는 비밀번호가 틀렸습니다.");
+        }
+      }
+
+      // 로그아웃
+      function logout() {
+        localStorage.removeItem("loggedIn");
+        // localStorage에서 아이디와 비밀번호는 그대로 남겨두고 로그인 상태만 삭제
+        location.reload(); // 페이지 새로고침하여 로그아웃 상태 반영
+      }
+
+      // 로그인 폼과 회원가입 폼을 서로 다르게 보이게 하기
+      function showSignUpForm() {
+        document.getElementById("signInForm").style.display = "none"; // 로그인 폼 숨기기
+        document.getElementById("signUpForm").style.display = "block"; // 회원가입 폼 보이기
+      }
+
+      function showSignInForm() {
+        document.getElementById("signUpForm").style.display = "none"; // 회원가입 폼 숨기기
+        document.getElementById("signInForm").style.display = "block"; // 로그인 폼 보이기
+      }
+
+      function hideSignUpForm() {
+        document.getElementById("signUpForm").style.display = "none";
+      }
+
+      function hideSignInForm() {
+        document.getElementById("signInForm").style.display = "none";
+      }
+
+      // 책 등록
+      function addbook() {
+        const name = document.querySelector("#bookName").value;
+        const from = document.querySelector("#bookFrom").value;
+        const value = document.querySelector("#bookValue").value;
+        const author = document.querySelector("#bookAuthor").value;
+
+        // 새 책 정보 객체 생성
+        const book = { name, from, value, author };
+
+        // 기존 데이터 가져오기
+        const books = JSON.parse(localStorage.getItem("books")) || [];
+
+        // 새 책 정보 추가
+        books.push(book);
+
+        // localStorage에 다시 저장
+        localStorage.setItem("books", JSON.stringify(books));
+
+        alert("책이 성공적으로 등록되었습니다!");
+      }
+    </script>
+  </body>
+</html>

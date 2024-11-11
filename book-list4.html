@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>교재 목록</title>
+    <link rel="stylesheet" href="book-list.css" />
+  </head>
+  <body>
+    <header>
+      <h1>교재 목록</h1>
+      <nav>
+        <a href="main3.html">홈</a>
+        <a href="book-list3.html">교재 목록</a>
+        <a href="cart.html">장바구니</a>
+      </nav>
+    </header>
+    <!-- 헤더 -->
+    <section>
+      <form action="">검색</form>
+      <div>
+        <label for="" id="search">책 검색</label>
+        <input
+        type="text"
+        name=""
+        id="searchTitle"
+        placeholder="책 이름을 적어주세요"
+      />
+      <input
+        type="text"
+        name=""
+        id="searchAuthor"
+        placeholder="책 저자를 적어주세요"
+      />
+      <input
+      type="text"
+      name=""
+      id="price"
+      placeholder="희망가격을 적어주세요."
+    />
+        <input
+          type="button"
+          name=""
+          id=""
+          value="검색"
+          onclick="searchBook()"
+        />
+        <div class="search-result">
+          <h3>검색 결과</h3>
+          <p id="searchResult"></p>
+        </div>
+        <!-- 교재 목록 표시 영역 -->
+        <div id="book-list-container"></div>
+    </section>
+
+    <script>
+      let cart = []; // 장바구니 배열
+
+      //==================================================================================
+      // 검색 기능
+     // 검색 기능
+function searchBook() {
+          // 검색 입력 값 가져오기
+          const searchTitle = document.getElementById("searchTitle").value;
+          const searchAuthor = document.getElementById("searchAuthor").value;
+          const bookPrice= document.getElementById("price").value;
+
+          const storedBooks = localStorage.getItem("books");
+          const books = JSON.parse(storedBooks) || []; // JSON 문자열을 배열로 변환
+
+          // 검색 조건에 맞는 모든 책을 배열로 가져오기
+          const results = books.filter(
+            (book) => (book.name === searchTitle && book.author === searchAuthor &&  ((book.value )>=0 &&(book.value)<= bookPrice))          );
+          const searchResult = document.getElementById("searchResult");
+
+          // 검색 결과 초기화
+          searchResult.innerHTML = "";
+
+          if (results.length > 0) {
+            results.forEach((result, index) => {
+              // 각각의 책 정보를 고유하게 처리
+              searchResult.innerHTML += `
+        찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: ${result.author}
+        <button onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>
+      `;
+            });
+          } else {
+            searchResult.textContent = "해당 책을 찾을 수 없습니다.";
+          }
+        }
+      //==================================================================================
+
+      // 저장된 교재 목록을 가져와서 화면에 표시하는 함수
+      function loadBooks() {
+        const bookListContainer = document.getElementById(
+          "book-list-container"
+        );
+        const books = JSON.parse(localStorage.getItem("books")) || [];
+
+        // 책 목록을 반복하여 화면에 추가
+        books.forEach((book, index) => {
+          const bookDiv = document.createElement("div");
+          bookDiv.textContent = `책 이름: ${book.name} | 출판사: ${book.from} | 가격: ${book.value} | 저자: ${book.author}`;
+          bookListContainer.appendChild(bookDiv);
+
+          const addToCartButton = document.createElement("button");
+          addToCartButton.textContent = "장바구니에 담기";
+          bookDiv.appendChild(addToCartButton);
+
+          // "장바구니에 담기" 버튼 클릭 시 addBook 호출
+          addToCartButton.onclick = function () {
+            addBook(book);
+          };
+        });
+      }
+      // 페이지 로드 시 책 목록 불러오기
+      loadBooks();
+
+      // 장바구니에 책 추가
+      function addBook(book) {
+  // localStorage에서 기존 장바구니 데이터 가져오기
+  let cart = JSON.parse(localStorage.getItem("cart")) || []; // 없으면 빈 배열로 초기화
+
+  // 이미 장바구니에 담긴 책인지 확인
+  const isAlreadyInCart = cart.some(
+    (cartBook) =>
+      cartBook.name === book.name && cartBook.author === book.author
+  );
+
+  if (isAlreadyInCart) {
+    // 이미 장바구니에 있는 책이라면 알림을 띄우고 추가하지 않음
+    alert(`${book.name}은 이미 장바구니에 담겨있습니다.`);
+  } else {
+    // 장바구니에 책 추가
+    cart.push(book);
+    // 알림 메시지 표시
+    alert(`${book.name}가 장바구니에 추가 되었습니다.`);
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+  }
+
+  // 장바구니 데이터를 localStorage에 다시 저장
+}
+
+      
+    </script>
+  </body>
+</html>

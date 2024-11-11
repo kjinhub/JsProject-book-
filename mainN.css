@@ -1,0 +1,114 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+.login {
+  float: right;
+  width: 7%;
+}
+.login > * {
+  margin: 0% 1% 0% 1%;
+  color: darkgray;
+  text-decoration: none;
+  transition: 1s;
+}
+.login > #signI:hover {
+  color: white;
+  font-size: large;
+}
+.login > #signU:hover {
+  color: white;
+  font-size: large;
+}
+#userIdDisplay {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+#logOut {
+  position: absolute;
+  right: 30px;
+  top: 45px;
+}
+header,
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+}
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.book-list {
+  list-style: none;
+  padding: 0;
+}
+.book-item {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+.book-item:last-child {
+  border-bottom: none;
+}
+.book-item a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* 등록 기능*/
+/* 제목 스타일 */
+.container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* 입력 */
+.container div {
+  margin-bottom: 15px;
+}
+
+/* 라벨 */
+.container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: bold;
+}
+/* 입력 */
+.container input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 버튼 */
+.container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+button:hover {
+  background-color: #454343;
+}
