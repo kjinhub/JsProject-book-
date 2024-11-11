@@ -54,7 +54,7 @@
     </section>
 
     <script>
-      let cart = []; // 장바구니 배열
+      // let cart = []; // 장바구니 배열
 
       //==================================================================================
       // 검색 기능
@@ -92,9 +92,7 @@ function searchBook() {
 
       // 저장된 교재 목록을 가져와서 화면에 표시하는 함수
       function loadBooks() {
-        const bookListContainer = document.getElementById(
-          "book-list-container"
-        );
+        const bookListContainer = document.getElementById("book-list-container");
         const books = JSON.parse(localStorage.getItem("books")) || [];
 
         // 책 목록을 반복하여 화면에 추가
@@ -119,12 +117,12 @@ function searchBook() {
       // 장바구니에 책 추가
       function addBook(book) {
   // localStorage에서 기존 장바구니 데이터 가져오기
-  let cart = JSON.parse(localStorage.getItem("cart")) || []; // 없으면 빈 배열로 초기화
-
+    let cart = JSON.parse(localStorage.getItem("cart")) || []; // 없으면 빈 배열로 초기화
+      //cart 빈배열 
   // 이미 장바구니에 담긴 책인지 확인
   const isAlreadyInCart = cart.some(
     (cartBook) =>
-      cartBook.name === book.name && cartBook.author === book.author
+      (cartBook.name === book.name) && (cartBook.author === book.author) && (book.value === cartBook.value)
   );
 
   if (isAlreadyInCart) {

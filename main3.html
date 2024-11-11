@@ -12,21 +12,25 @@
   <body>
     <!-- 헤더 -->
     <header>
-      <section class="login" id="signUpSection">
-        <a href="javascript:void(0)" id="signU" onclick="showSignUpForm()"
+      <div>
+        <section class="login" id="signUpSection">
+          <a href="javascript:void(0)" id="signU" onclick="showSignUpForm()"
           >회원가입</a
-        >
-      </section>
-      <section class="login" id="signInSection">
-        <a href="javascript:void(0)" id="signI" onclick="showSignInForm()"
+          >
+        </section>
+        <section class="login" id="signInSection">
+          <a href="javascript:void(0)" id="signI" onclick="showSignInForm()"
           >로그인</a
-        >
+          >
+      </div>
       </section>
       <section class="login" id="logoutSection" style="display: none">
         <span id="userIdDisplay"></span>
         <a href="javascript:void(0)" id="logOut" onclick="logout()">로그아웃</a>
       </section>
-      <h1>중고 교재 거래 사이트</h1>
+      <div>
+        <h1 id="title">중고 교재 거래 사이트</h1>
+      </div>
       <nav>
         <a href="main3.html">홈</a>
         <a href="book-list4.html">교재 목록</a>
@@ -37,7 +41,8 @@
     <!-- 회원가입 폼 -->
     <div id="signUpForm" style="display: none">
       <h2>회원가입</h2>
-      <input type="text" id="signUpId" placeholder="아이디" required />
+      <div id="signUpForm1">
+        <input type="text" id="signUpId" placeholder="아이디" required />
       <input
         type="password"
         id="signUpPassword"
@@ -46,12 +51,14 @@
       />
       <button onclick="signUp()">회원가입</button>
       <button onclick="hideSignUpForm()">취소</button>
+      </div>
     </div>
 
     <!-- 로그인 폼 -->
     <div id="signInForm" style="display: none">
       <h2>로그인</h2>
-      <input type="text" id="signInId" placeholder="아이디" required />
+      <div id="signInForm1">
+        <input type="text" id="signInId" placeholder="아이디" required />
       <input
         type="password"
         id="signInPassword"
@@ -60,6 +67,7 @@
       />
       <button onclick="signIn()">로그인</button>
       <button onclick="hideSignInForm()">취소</button>
+      </div>
     </div>
 
     <!-- 메인 콘텐츠 -->
