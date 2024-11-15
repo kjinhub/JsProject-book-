@@ -59,35 +59,52 @@
       //==================================================================================
       // 검색 기능
      // 검색 기능
-function searchBook() {
-          // 검색 입력 값 가져오기
-          const searchTitle = document.getElementById("searchTitle").value;
-          const searchAuthor = document.getElementById("searchAuthor").value;
-          const bookPrice= document.getElementById("price").value;
+  function searchBook() {
+    // 검색 입력 값 가져오기
+    const searchTitle = document.getElementById("searchTitle").value;
+    const searchAuthor = document.getElementById("searchAuthor").value;
+    const bookPrice = document.getElementById("price").value;
 
-          const storedBooks = localStorage.getItem("books");
-          const books = JSON.parse(storedBooks) || []; // JSON 문자열을 배열로 변환
+    // 가격이 숫자인지 확인
+    if (bookPrice !== "" && isNaN(bookPrice)) {
+      alert("가격에는 숫자만 입력해 주세요.");
+      return; // 숫자가 아니면 함수 종료
+    }
 
-          // 검색 조건에 맞는 모든 책을 배열로 가져오기
-          const results = books.filter(
-            (book) => (book.name === searchTitle && book.author === searchAuthor &&  ((book.value )>=0 &&(book.value)<= bookPrice))          );
-          const searchResult = document.getElementById("searchResult");
+    const storedBooks = localStorage.getItem("books");
+    const books = JSON.parse(storedBooks) || []; // JSON 문자열을 배열로 변환
 
-          // 검색 결과 초기화
-          searchResult.innerHTML = "";
+    // 검색 조건에 맞는 모든 책을 배열로 가져오기
+    const results = books.filter((book) => {
+      // 가격이 입력된 경우에만 가격 조건을 적용
+      const isPriceValid = bookPrice ? book.value <= parseFloat(bookPrice) : true;
 
-          if (results.length > 0) {
-            results.forEach((result, index) => {
-              // 각각의 책 정보를 고유하게 처리
-              searchResult.innerHTML += `
+      return (
+        book.name === searchTitle &&
+        book.author === searchAuthor &&
+        isPriceValid
+      );
+    });
+
+    const searchResult = document.getElementById("searchResult");
+
+    // 검색 결과 초기화
+    searchResult.innerHTML = "";
+
+    if (results.length > 0) {
+      results.forEach((result, index) => {
+        // 각각의 책 정보를 고유하게 처리
+        searchResult.innerHTML += `
         찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: ${result.author}
         <button onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>
       `;
-            });
-          } else {
-            searchResult.textContent = "해당 책을 찾을 수 없습니다.";
-          }
-        }
+      });
+    } else {
+      searchResult.textContent = "해당 책을 찾을 수 없습니다.";
+    }
+  }
+
+
       //==================================================================================
 
       // 저장된 교재 목록을 가져와서 화면에 표시하는 함수

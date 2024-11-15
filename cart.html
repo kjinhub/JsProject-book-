@@ -63,11 +63,32 @@
     }
     
 
-     // 구매 처리 함수
-    function purchaseItem(index) {
-      alert("구매되었습니다");
-      removeCart(index); // 구매 후 해당 항목 제거
+    // 구매 처리 함수
+function purchaseItem(index) {
+  alert("구매되었습니다");
+  listRemove(index); // 구매한 책을 books에서 제거
+  removeCart(index); // 구매 후 장바구니에서도 해당 항목 제거
+}
+
+    function listRemove(index) {
+  const books = JSON.parse(localStorage.getItem("books")) || []; // 'books'가 null일 수 있으므로 기본값 추가
+
+  // books 배열을 역순으로 순회하며 cart와 일치하는 요소 삭제
+  for (let i =0; i<= books.length; i++) {
+    if (
+      books[i].name === cart[index].name 
+      &&books[i].from === cart[index].from 
+      &&books[i].value === cart[index].value 
+      &&books[i].author === cart[index].author
+    ) {
+      books.splice(i, 1);
     }
+  }
+
+  // 수정된 books 배열을 다시 localStorage에 저장
+  localStorage.setItem("books", JSON.stringify(books));
+}
+
 
     // 장바구니 비우기 함수
     function clearCart() {
