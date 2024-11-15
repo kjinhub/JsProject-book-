@@ -15,70 +15,73 @@
       <a href="cart.html">장바구니</a>
     </nav>
   </header>
-  <h2 style="margin-top:3% ;">내 장바구니</h2>
 
   <section class="cart-container">
-      <div id="cartList"  ></div>
-
-
-    <button onclick="clearCart(document.getElementsByTagName('div'))" id="removeAll">장바구니 비우기</button>
+    <h2>내 장바구니</h2>
+    <div id="cartList" style="border: solid black 1px; width: 100%; height: 200px;" ></div>
+      </div>
+    <button id="removeAll" onclick="clearCart()">장바구니 비우기</button>
   </section>
 
   <script>
-    let divCounter=0;
     // localStorage에서 장바구니 항목 불러오기 및 렌더링
         const cartList = document.getElementById("cartList");
-        const cart = JSON.parse(localStorage.getItem("cart"))||[];
+        let cart = JSON.parse(localStorage.getItem("cart")) || []; //let으로 선언
         function loadCarts(){
-
+        cartList.innerHTML = ""; // 기존 항목 초기화
         
         cart.forEach((carts,index)=>{
-        const cartDiv =document.createElement("div");
-        cartDiv.id=`div-${divCounter}`
+        const cartDiv =document.createElement("p");
         cartDiv.textContent= `책 이름: ${carts.name} | 출판사: ${carts.from} | 가격: ${carts.value} | 저자: ${carts.author}`;
         cartList.appendChild(cartDiv)
-
+        //삭제 버튼 생성
         const removeBtn = document.createElement("button");
-        const removeA = document.getElementById("removeAll")
         removeBtn.textContent="삭제";
         cartDiv.append(removeBtn)
-        divCounter++
-        removeBtn.onclick = ()=>{
-            removeCart(cartDiv.id)
-        }
+        removeBtn.onclick = ()=>removeCart(index)
+            
+
+        // 구매 버튼 생성
+        const buyBtn = document.createElement("button");
+        buyBtn.textContent = "구매하기";
+        buyBtn.onclick = () => purchaseItem(index);
+
+        cartDiv.appendChild(removeBtn);
+        cartDiv.appendChild(buyBtn);
+        cartList.appendChild(cartDiv);
         
-    })
-    }
+    });
+  }
     loadCarts();
 
 
-    // 항목 삭제 함수
-    function removeCart(divId){
-      const tagId= document.getElementById(divId)
-        if(tagId){
-          tagId.remove();
-          alert("해당 목록이 삭제 되었습니다")
-        }else{
-          alert("해당 목록이 존재하지 않습니다")
-        }
+     // 항목 삭제 함수
+     function removeCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCarts();
+    }
+    
 
+     // 구매 처리 함수
+    function purchaseItem(index) {
+      alert("구매되었습니다");
+      removeCart(index); // 구매 후 해당 항목 제거
     }
 
     // 장바구니 비우기 함수
     function clearCart() {
-  const divs = document.querySelectorAll('div'); // 모든 div 태그 선택
-  if(divs){
-    divs.forEach((div) => {
-    div.remove(); // 각 div 요소를 제거
-    localStorage.removeItem("cart");
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCarts();
+    }
 
-  });
-  alert("장바구니가 비워졌습니다.")
-
-  }else{
-    alert("장바구니에 상품이 없습니다")
-  }
+    function removeCart(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCarts(); // 항목 제거 후 장바구니 새로고침
 }
+
    
   </script>
 </body>
