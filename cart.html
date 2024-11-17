@@ -8,102 +8,222 @@
 </head>
 <body>
   <header>
-    <h1>장바구니</h1>
+    <div>
+        <section class="login" id="signUpSection">
+            <a href="javascript:void(0)" id="signU" onclick="showSignUpForm()">회원가입</a>
+        </section>
+        <section class="login" id="signInSection">
+            <a href="javascript:void(0)" id="signI" onclick="showSignInForm()">로그인</a>
+        </section>
+    </div>
+    <section class="login" id="logoutSection" style="display: none">
+        <span id="userIdDisplay"></span>
+        <span id="userPointsDisplay"></span>
+        <a href="javascript:void(0)" id="logOut" onclick="logout()">로그아웃</a>
+    </section>
+    <div>
+        <h1 id="title">장바구니</h1>
+    </div>
     <nav>
-      <a href="main3.html">홈</a>
-      <a href="book-list4.html">교재 목록</a>
-      <a href="cart.html">장바구니</a>
+        <a href="main3.html">홈</a>
+        <a href="book-list4.html">교재 목록</a>
+        <a href="cart.html">장바구니(중요)</a>
     </nav>
   </header>
 
+  <!-- 회원가입 폼 -->
+  <div id="signUpForm" style="display: none">
+    <h2>회원가입</h2>
+    <div id="signUpForm1">
+        <input type="text" id="signUpId" placeholder="아이디" required />
+        <input type="password" id="signUpPassword" placeholder="비밀번호" required />
+        <button onclick="signUp()">회원가입</button>
+        <button onclick="hideSignUpForm()">취소</button>
+    </div>
+  </div>
+
+  <!-- 로그인 폼 -->
+  <div id="signInForm" style="display: none">
+    <h2>로그인</h2>
+    <div id="signInForm1">
+        <input type="text" id="signInId" placeholder="아이디" required />
+        <input type="password" id="signInPassword" placeholder="비밀번호" required />
+        <button onclick="signIn()">로그인</button>
+        <button onclick="hideSignInForm()">취소</button>
+    </div>
+  </div>
+
+  <!-- 장바구니 섹션 -->
   <section class="cart-container">
     <h2>내 장바구니</h2>
-    <div id="cartList" style="border: solid black 1px; width: 100%; height: 200px;" ></div>
-      </div>
+    <div id="cartList" style="border: solid black 1px; width: 100%; height: 200px;"></div>
     <button id="removeAll" onclick="clearCart()">장바구니 비우기</button>
   </section>
-<!-- 최신 -->
+
   <script>
-    // localStorage에서 장바구니 항목 불러오기 및 렌더링
-        const cartList = document.getElementById("cartList");
-        let cart = JSON.parse(localStorage.getItem("cart")) || []; //let으로 선언
-        function loadCarts(){
+    // 초기화: 로그인 상태 확인
+    window.onload = function () {
+        const isLoggedIn = localStorage.getItem("loggedIn");
+        const userId = localStorage.getItem("userId");
+
+        if (isLoggedIn === "true") {
+            document.getElementById("signUpSection").style.display = "none";
+            document.getElementById("signInSection").style.display = "none";
+            document.getElementById("logoutSection").style.display = "block";
+
+            document.getElementById("userIdDisplay").innerText = `${userId} 님 `;
+            const userPoints = localStorage.getItem("userPoints") || 0;
+            document.getElementById("userPointsDisplay").innerText = `포인트: ${userPoints}`;
+        } else {
+            document.getElementById("signUpSection").style.display = "block";
+            document.getElementById("signInSection").style.display = "block";
+            document.getElementById("logoutSection").style.display = "none";
+        }
+    };
+
+    // 회원가입
+    function signUp() {
+        const id = document.getElementById("signUpId").value;
+        const password = document.getElementById("signUpPassword").value;
+
+        if (!id || !password) {
+            alert("아이디와 비밀번호를 입력하세요.");
+            return;
+        }
+
+        localStorage.setItem("userId", id);
+        localStorage.setItem("userPassword", password);
+        localStorage.setItem("userPoints", 0); // 기본 포인트: 0
+        alert("회원가입이 완료되었습니다!");
+        hideSignUpForm();
+    }
+
+    // 로그인
+    function signIn() {
+        const id = document.getElementById("signInId").value;
+        const password = document.getElementById("signInPassword").value;
+        const storedId = localStorage.getItem("userId");
+        const storedPassword = localStorage.getItem("userPassword");
+
+        if (id === storedId && password === storedPassword) {
+            localStorage.setItem("loggedIn", "true");
+            alert("로그인 성공!");
+            location.reload();
+        } else {
+            alert("아이디 또는 비밀번호가 틀렸습니다.");
+        }
+    }
+
+    // 로그아웃
+    function logout() {
+        localStorage.removeItem("loggedIn");
+        location.reload();
+    }
+
+    // 폼 전환
+    function showSignUpForm() {
+        document.getElementById("signInForm").style.display = "none";
+        document.getElementById("signUpForm").style.display = "block";
+    }
+
+    function showSignInForm() {
+        document.getElementById("signUpForm").style.display = "none";
+        document.getElementById("signInForm").style.display = "block";
+    }
+
+    function hideSignUpForm() {
+        document.getElementById("signUpForm").style.display = "none";
+    }
+
+    function hideSignInForm() {
+        document.getElementById("signInForm").style.display = "none";
+    }
+
+    // 장바구니 로드
+    const cartList = document.getElementById("cartList");
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+    function loadCarts() {
         cartList.innerHTML = ""; // 기존 항목 초기화
-        
-        cart.forEach((carts,index)=>{
-        const cartDiv =document.createElement("p");
-        cartDiv.textContent= `책 이름: ${carts.name} | 출판사: ${carts.from} | 가격: ${carts.value} | 저자: ${carts.author}`;
-        cartList.appendChild(cartDiv)
-        //삭제 버튼 생성
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent="삭제";
-        cartDiv.append(removeBtn)
-        removeBtn.onclick = ()=>removeCart(index)
+        cart.forEach((carts, index) => {
+            const cartDiv = document.createElement("p");
+            cartDiv.textContent = `책 이름: ${carts.name} | 출판사: ${carts.from} | 가격: ${carts.value} | 저자: ${carts.author}`;
             
+            // 삭제 버튼
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "삭제";
+            removeBtn.onclick = () => removeCart(index);
+            cartDiv.appendChild(removeBtn);
 
-        // 구매 버튼 생성
-        const buyBtn = document.createElement("button");
-        buyBtn.textContent = "구매하기";
-        buyBtn.onclick = () => purchaseItem(index);
+            // 구매 버튼
+            const buyBtn = document.createElement("button");
+            buyBtn.textContent = "구매하기";
+            buyBtn.onclick = () => purchaseItem(index);
+            cartDiv.appendChild(buyBtn);
 
-        cartDiv.appendChild(removeBtn);
-        cartDiv.appendChild(buyBtn);
-        cartList.appendChild(cartDiv);
-        
-    });
-  }
+            cartList.appendChild(cartDiv);
+        });
+    }
     loadCarts();
 
-
-     // 항목 삭제 함수
-     function removeCart(index) {
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCarts();
-    }
-    
-
-    // 구매 처리 함수
-function purchaseItem(index) {
-  alert("구매되었습니다");
-  listRemove(index); // 구매한 책을 books에서 제거
-  removeCart(index); // 구매 후 장바구니에서도 해당 항목 제거
-}
-
-    function listRemove(index) {
-  const books = JSON.parse(localStorage.getItem("books")) || []; // 'books'가 null일 수 있으므로 기본값 추가
-
-  // books 배열을 역순으로 순회하며 cart와 일치하는 요소 삭제
-  for (let i =0; i<= books.length; i++) {
-    if (
-      books[i].name === cart[index].name 
-      &&books[i].from === cart[index].from 
-      &&books[i].value === cart[index].value 
-      &&books[i].author === cart[index].author
-    ) {
-      books.splice(i, 1);
-    }
-  }
-
-  // 수정된 books 배열을 다시 localStorage에 저장
-  localStorage.setItem("books", JSON.stringify(books));
-}
-
-
-    // 장바구니 비우기 함수
-    function clearCart() {
-      cart = [];
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCarts();
-    }
-
+    // 장바구니 항목 삭제
     function removeCart(index) {
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadCarts(); // 항목 제거 후 장바구니 새로고침
-}
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCarts();
+    }
 
-   
+    // 구매 처리
+    function purchaseItem(index) {
+
+      let updatedPoints = parseInt(localStorage.getItem("userPoints")) || 0;
+
+        if(updatedPoints >= parseInt(cart[index].value)){
+          alert("구매되었습니다");
+          reducePoint(index);
+          listRemove(index);
+          removeCart(index);
+
+        }else{
+          alert("포인트를 충전해주세요.")
+        }
+    }
+
+    // 포인트 감소
+    function reducePoint(index) {
+        let updatedPoints = parseInt(localStorage.getItem("userPoints")) || 0;
+        if (updatedPoints < 0) updatedPoints = 0; // 음수 방지
+
+          updatedPoints -= parseInt(cart[index].value); // 책 가격만큼 감소
+        localStorage.setItem("userPoints", updatedPoints);
+        window.onload()
+
+        // document.getElementById("userPointsDisplay").innerText = `포인트 : ${currentPoints}`;
+
+    }
+
+    // books 목록에서 항목 제거
+    function listRemove(index) {
+        const books = JSON.parse(localStorage.getItem("books")) || [];
+        for (let i = books.length - 1; i >= 0; i--) {
+            if (
+                books[i].name === cart[index].name &&
+                books[i].from === cart[index].from &&
+                books[i].value === cart[index].value &&
+                books[i].author === cart[index].author
+            ) {
+                books.splice(i, 1);
+            }
+        }
+        localStorage.setItem("books", JSON.stringify(books));
+    }
+
+    // 장바구니 비우기
+    function clearCart() {
+        cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCarts();
+    }
   </script>
 </body>
 </html>

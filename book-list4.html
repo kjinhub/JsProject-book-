@@ -16,6 +16,7 @@
         <a href="cart.html">장바구니</a>
       </nav>
     </header>
+
     <!-- 헤더 -->
     <section>
       <form action="">검색</form>
@@ -55,6 +56,89 @@
     </section>
 
     <script>
+   // 초기화 시 로그인 상태 체크
+   window.onload = function () {
+            const isLoggedIn = localStorage.getItem("loggedIn");
+            const userId = localStorage.getItem("userId");
+
+            if (isLoggedIn === "true") {
+                document.getElementById("signUpSection").style.display = "none";
+                document.getElementById("signInSection").style.display = "none";
+                document.getElementById("logoutSection").style.display = "block";
+
+                // 사용자 아이디 표시
+                document.getElementById("userIdDisplay").innerText = `${userId} 님 `;
+
+                // 사용자 포인트 표시
+                const userPoints = localStorage.getItem("userPoints");
+                document.getElementById("userPointsDisplay").innerText = `포인트 : ${userPoints}`;
+            } else {
+                document.getElementById("signUpSection").style.display = "block";
+                document.getElementById("signInSection").style.display = "block";
+                document.getElementById("logoutSection").style.display = "none";
+            }
+        };
+
+        // 회원가입
+        function signUp() {
+            const id = document.getElementById("signUpId").value;
+            const password = document.getElementById("signUpPassword").value;
+
+            if (!id || !password) {
+                alert("아이디와 비밀번호를 입력하세요.");
+                return;
+            }
+
+            // localStorage에 회원 정보 저장
+            localStorage.setItem("userId", id);
+            localStorage.setItem("userPassword", password);
+            localStorage.setItem("userPoints", 0); // 기본 포인트 0 설정
+
+            alert("회원가입이 완료되었습니다!");
+            hideSignUpForm();
+        }
+
+        // 로그인
+        function signIn() {
+            const id = document.getElementById("signInId").value;
+            const password = document.getElementById("signInPassword").value;
+            const storedId = localStorage.getItem("userId");
+            const storedPassword = localStorage.getItem("userPassword");
+
+            if (id === storedId && password === storedPassword) {
+                localStorage.setItem("loggedIn", "true");
+                alert("로그인 성공!");
+                location.reload(); // 페이지 새로고침하여 로그인 상태 반영
+            } else {
+                alert("아이디 또는 비밀번호가 틀렸습니다.");
+            }
+        }
+
+        // 로그아웃
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            // localStorage에서 아이디와 비밀번호는 그대로 남겨두고 로그인 상태만 삭제
+            location.reload(); // 페이지 새로고침하여 로그아웃 상태 반영
+        }
+
+        // 로그인 폼과 회원가입 폼을 서로 다르게 보이게 하기
+        function showSignUpForm() {
+            document.getElementById("signInForm").style.display = "none"; // 로그인 폼 숨기기
+            document.getElementById("signUpForm").style.display = "block"; // 회원가입 폼 보이기
+        }
+
+        function showSignInForm() {
+            document.getElementById("signUpForm").style.display = "none"; // 회원가입 폼 숨기기
+            document.getElementById("signInForm").style.display = "block"; // 로그인 폼 보이기
+        }
+
+        function hideSignUpForm() {
+            document.getElementById("signUpForm").style.display = "none";
+        }
+
+        function hideSignInForm() {
+            document.getElementById("signInForm").style.display = "none";
+        }
       // let cart = []; // 장바구니 배열
 
       //==================================================================================
