@@ -1,5 +1,5 @@
 /* cart.css */
-/* 최신 */
+
 /* 기본 스타일 초기화 */
 * {
   margin: 0;
@@ -18,6 +18,57 @@ body {
   align-items: center;
 }
 
+.login {
+  float: right;
+  width: 7%;
+}
+.login > * {
+  margin: 0% 1% 0% 1%;
+  color: darkgray;
+  text-decoration: none;
+  transition: 1s;
+}
+.login > #signI:hover {
+  color: white;
+  font-size: large;
+}
+.login > #signU:hover {
+  color: white;
+  font-size: large;
+}
+#signUpForm {
+  clear: both;
+  display: inline;
+  width: 35%;
+  float: right;
+  clear: both;
+  margin: 2% 0 50px 65%;
+}
+#signInForm {
+  clear: both;
+  margin: 2% 0 50px 65%;
+  display: inline;
+  width: 35%;
+  float: right;
+  clear: both;
+}
+
+.login > #userIdDisplay {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+.login > #logOut {
+  position: absolute;
+  right: 30px;
+  top: 70px;
+  clear: both;
+}
+.login > #userPointsDisplay {
+  position: absolute;
+  right: 30px;
+  top: 45px;
+}
 
 /* 헤더 스타일 */
 header {
@@ -26,6 +77,8 @@ header {
   color: #fff;
   padding: 1em 0;
   text-align: center;
+  flex-direction: column;
+  display: flex;
 }
 
 header h1 {
@@ -102,7 +155,7 @@ nav a:hover {
 }
 
 /* 장바구니 비우기 버튼 */
-button {
+#removeAll {
   background-color: #4caf50;
   color: #fff;
   border: none;
@@ -111,12 +164,11 @@ button {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 1em;
-  
 }
-#removeAll{
-  width: 80px;
-  height: 50px;
+#removeAll {
+  width: 120px;
+  height: 60px;
 }
-button:hover {
+#removeAll:hover {
   background-color: #388e3c;
 }

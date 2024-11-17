@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- 최신 -->
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -9,16 +8,52 @@
   </head>
   <body>
     <header>
-      <h1>교재 목록</h1>
+      <div>
+        <section class="login" id="signUpSection">
+            <a href="javascript:void(0)" id="signU" onclick="showSignUpForm()">회원가입</a>
+        </section>
+        <section class="login" id="signInSection">
+            <a href="javascript:void(0)" id="signI" onclick="showSignInForm()">로그인</a>
+    </div>
+    </section>
+    <section class="login" id="logoutSection" style="display: none">
+        <span id="userIdDisplay"></span>
+        <span id="userPointsDisplay"></span>
+        <a href="javascript:void(0)" id="logOut" onclick="logout()">로그아웃</a>
+    </section>
+    <div>
+      <h1 id="title">교재 목록</h1>
+    </div>
       <nav>
         <a href="main3.html">홈</a>
         <a href="book-list4.html">교재 목록</a>
         <a href="cart.html">장바구니</a>
       </nav>
     </header>
-
     <!-- 헤더 -->
-    <section>
+    <!-- 회원가입 폼 -->
+    <div id="signUpForm" style="display: none">
+      <h2>회원가입</h2>
+      <div id="signUpForm1">
+          <input type="text" id="signUpId" placeholder="아이디" required />
+          <input type="password" id="signUpPassword" placeholder="비밀번호" required />
+          <button onclick="signUp()">회원가입</button>
+          <button onclick="hideSignUpForm()">취소</button>
+      </div>
+  </div>
+
+  <!-- 로그인 폼 -->
+  <div id="signInForm" style="display: none">
+      <h2>로그인</h2>
+      <div id="signInForm1">
+          <input type="text" id="signInId" placeholder="아이디" required />
+          <input type="password" id="signInPassword" placeholder="비밀번호" required />
+          <button onclick="signIn()">로그인</button>
+          <button onclick="hideSignInForm()">취소</button>
+      </div>
+  </div>
+
+    <section id="searchBody">
       <form action="">검색</form>
       <div>
         <label for="" id="search">책 검색</label>
@@ -56,10 +91,12 @@
     </section>
 
     <script>
-   // 초기화 시 로그인 상태 체크
-   window.onload = function () {
+      
+      // 초기화 시 로그인 상태 체크
+      window.onload = function () {
             const isLoggedIn = localStorage.getItem("loggedIn");
             const userId = localStorage.getItem("userId");
+            
 
             if (isLoggedIn === "true") {
                 document.getElementById("signUpSection").style.display = "none";
@@ -139,6 +176,7 @@
         function hideSignInForm() {
             document.getElementById("signInForm").style.display = "none";
         }
+
       // let cart = []; // 장바구니 배열
 
       //==================================================================================

@@ -1,5 +1,4 @@
 /* 전체적인 레이아웃 */
-/* 최신 */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -12,6 +11,58 @@ body {
   box-sizing: border-box;
 }
 
+.login {
+  float: right;
+  width: 7%;
+}
+.login > * {
+  margin: 0% 1% 0% 1%;
+  color: darkgray;
+  text-decoration: none;
+  transition: 1s;
+}
+.login > #signI:hover {
+  color: white;
+  font-size: large;
+}
+.login > #signU:hover {
+  color: white;
+  font-size: large;
+}
+#signUpForm {
+  clear: both;
+  display: inline;
+  width: 35%;
+  float: right;
+  clear: both;
+  margin: 0 0 50px 0;
+}
+#signInForm {
+  clear: both;
+  margin: 0 0 50px 0;
+  display: inline;
+  width: 35%;
+  float: right;
+  clear: both;
+}
+
+.login > #userIdDisplay {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+.login > #logOut {
+  position: absolute;
+  right: 30px;
+  top: 70px;
+  clear: both;
+}
+.login > #userPointsDisplay {
+  position: absolute;
+  right: 30px;
+  top: 45px;
+}
+
 body {
   font-family: Arial, sans-serif;
 }
@@ -21,6 +72,8 @@ header {
   color: white;
   padding: 1em;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 header h1 {
@@ -41,14 +94,20 @@ header nav a:hover {
   text-decoration: underline;
 }
 
-/* 섹션 컨테이너 */
 section {
+  display: flex;
+}
+/* 섹션 컨테이너 */
+section#searchBody {
+  display: inline-block;
   width: 80%;
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  left: 10%;
 }
 
 /* 폼 스타일 */
@@ -62,7 +121,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"] {
+#searchBody input[type="text"] {
   padding: 8px;
   margin-right: 10px;
   width: 200px;
@@ -70,7 +129,7 @@ input[type="text"] {
   border-radius: 4px;
 }
 
-input[type="button"] {
+#searchBody input[type="button"] {
   padding: 8px 16px;
   background-color: #007bff;
   color: white;
@@ -79,7 +138,7 @@ input[type="button"] {
   cursor: pointer;
 }
 
-input[type="button"]:hover {
+#searchBody input[type="button"]:hover {
   background-color: #0056b3;
 }
 
@@ -104,7 +163,7 @@ input[type="button"]:hover {
   color: #555;
 }
 
-button {
+#book-list-container button {
   padding: 6px 12px;
   background-color: #28a745;
   color: white;
@@ -114,7 +173,7 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+#book-list-container button:hover {
   background-color: #218838;
 }
 
