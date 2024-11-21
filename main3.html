@@ -155,7 +155,7 @@
             const storedPassword = localStorage.getItem("userPassword");
 
             if (id === storedId && password === storedPassword) {
-                localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("loggedIn",true);
                 alert("로그인 성공!");
                 location.reload(); // 페이지 새로고침하여 로그인 상태 반영
             } else {

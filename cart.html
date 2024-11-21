@@ -175,9 +175,7 @@
     }
     loadCarts();
     function deleteCart(index){
-        listRemove(index); //okay
         removeCart(index); //okay
-
     }
        // 장바구니 항목 삭제
     
@@ -228,6 +226,7 @@ function listRemove(index) {
       &&books[i].author === cart[index].author
     ) {
       books.splice(i, 1);
+      break;
     }
   }
   localStorage.setItem("cart", JSON.stringify(cart));
