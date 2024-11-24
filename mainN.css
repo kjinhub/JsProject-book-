@@ -4,38 +4,42 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
+
 .login {
   float: right;
   width: 7%;
   transition: 0.5s;
 }
+
 .login > * {
   margin: 0% 1% 0% 1%;
   color: darkgray;
   text-decoration: none;
   transition: 1s;
 }
+
 .login > #signI:hover {
   color: white;
-  font-size: large;
 }
+
 .login > #signU:hover {
   color: white;
-  font-size: large;
 }
 
 #userIdDisplay {
   position: absolute;
-  right: 30px;
-  top: 20px;
+  right: 2%;
+  top: 10%;
 }
-#logOut {
-  position: absolute;
-  right: 30px;
-  top: 45px;
-  clear: both;
 
+.login > #logOut {
+  position: absolute;
+  right: 2%;
+  top: 40%;
+  clear: both;
 }
+ /* 최신 */
+
 header {
   background-color: #333;
   color: white;
@@ -43,8 +47,10 @@ header {
   text-align: center;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
-footer{
+
+footer {
   background-color: #333;
   color: white;
   padding: 1rem;
@@ -52,27 +58,35 @@ footer{
   display: flex;
   flex-direction: column;
 }
-#title{
- text-align: center;
+
+#title {
+  text-align: center;
 }
 nav a {
-  color: white;
+  color: rgb(255, 255, 255);
   text-decoration: none;
   margin: 0 1rem;
 }
-.container {
+nav a:hover {
+  color: rgb(212, 212, 212);
+  /* text-decoration: none; */
+  margin: 0 1rem;
+}
 
+.container {
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.point{
+
+.point {
   float: right;
-  }
-  #pointBtn{
-    background-color: #4caf50;
+}
+
+#pointBtn {
+  background-color: #4caf50;
   color: #fff;
   border: none;
   /* padding: 0.7em 1.2em; */
@@ -80,18 +94,22 @@ nav a {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
-  }
+}
+
 .book-list {
   list-style: none;
   padding: 0;
 }
+
 .book-item {
   border-bottom: 1px solid #ddd;
   padding: 1rem 0;
 }
+
 .book-item:last-child {
   border-bottom: none;
 }
+
 .book-item a {
   color: #333;
   text-decoration: none;
@@ -119,6 +137,7 @@ nav a {
   color: #555;
   font-weight: bold;
 }
+
 /* 입력 */
 .container input[type="text"] {
   width: 100%;
@@ -127,6 +146,7 @@ nav a {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 /* 최신 */
 /* 버튼 */
 .container button {
@@ -139,23 +159,33 @@ nav a {
   cursor: pointer;
   font-size: 16px;
 }
+
 button:hover {
   background-color: #454343;
 }
-#signUpForm {
- clear: both;
-  display: inline;
-  width: 35%;
-  float: right;
-  clear: both;
-  margin: 0 0 50px 0;
 
+/* 로그인 폼, 회원가입 폼 */
+#signInForm,
+#signUpForm {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  width: 250px;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+  z-index: 9999;
 }
-#signInForm {
-  clear: both;
-margin: 0 0 50px 0;
-  display: inline;
-  width: 35%;
-  float: right;
-  clear: both;
+
+.login > #userPointsDisplay {
+  position: absolute;
+  right: 2%;
+  top: 25%;
+}
+
+#signInBt:hover,
+#signUpBt:hover,
+#closeBt:hover {
+  background-color: white;
 }

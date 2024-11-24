@@ -1,4 +1,5 @@
 /* cart.css */
+ /* 최신 */
 
 /* 기본 스타일 초기화 */
 * {
@@ -17,6 +18,28 @@ body {
   flex-direction: column;
   align-items: center;
 }
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  flex: 1;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* 화면 너비 전체 사용 */
+  margin-top: auto; /* 페이지 내용 뒤에 위치하도록 설정 */
+}
 
 .login {
   float: right;
@@ -30,11 +53,11 @@ body {
 }
 .login > #signI:hover {
   color: white;
-  font-size: large;
+  /* font-size: large; */
 }
 .login > #signU:hover {
   color: white;
-  font-size: large;
+  /* font-size: large; */
 }
 #signUpForm {
   clear: both;
@@ -53,21 +76,22 @@ body {
   clear: both;
 }
 
+
 .login > #userIdDisplay {
   position: absolute;
-  right: 30px;
-  top: 20px;
+  right: 3%;
+  top: 2%;
 }
 .login > #logOut {
   position: absolute;
-  right: 30px;
-  top: 70px;
+  right: 3%;
+  top: 8%;
   clear: both;
 }
 .login > #userPointsDisplay {
   position: absolute;
-  right: 30px;
-  top: 45px;
+  right: 3%;
+  top: 5%;
 }
 
 /* 헤더 스타일 */

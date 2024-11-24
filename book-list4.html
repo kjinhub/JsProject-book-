@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="book-list.css" />
   </head>
   <body>
+
     <header>
       <div>
         <section class="login" id="signUpSection">
@@ -54,7 +55,7 @@
   </div>
 
     <section id="searchBody">
-      <form action="">검색</form>
+      <form action=""><h1>검색</h1></form>
       <div>
         <label for="" id="search">책 검색</label>
         <input
@@ -89,7 +90,9 @@
         <!-- 교재 목록 표시 영역 -->
         <div id="book-list-container"></div>
     </section>
-
+    <footer>
+      <p>&copy; 2024 중고 교재 거래 사이트. 모든 권리 보유.</p>
+    </footer>
     <script>
       
       // 초기화 시 로그인 상태 체크
@@ -181,7 +184,6 @@
 
       //==================================================================================
       // 검색 기능
-     // 검색 기능
   function searchBook() {
     // 검색 입력 값 가져오기
     const searchTitle = document.getElementById("searchTitle").value;
@@ -210,7 +212,6 @@
     });
 
     const searchResult = document.getElementById("searchResult");
-
     // 검색 결과 초기화
     searchResult.innerHTML = "";
 
@@ -218,18 +219,21 @@
       results.forEach((result, index) => {
         // 각각의 책 정보를 고유하게 처리
         searchResult.innerHTML += `
-        찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: ${result.author}
-        <button onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>
-      `;
+        찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: 
+        ${result.author}
+        <button style="padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;" onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>`;
       });
     } else {
       searchResult.textContent = "해당 책을 찾을 수 없습니다.";
     }
   }
-
-
       //==================================================================================
-
       // 저장된 교재 목록을 가져와서 화면에 표시하는 함수
       function loadBooks() {
         const bookListContainer = document.getElementById("book-list-container");
@@ -238,7 +242,8 @@
         // 책 목록을 반복하여 화면에 추가
         books.forEach((book, index) => {
           const bookDiv = document.createElement("div");
-          bookDiv.textContent = `책 이름: ${book.name} | 출판사: ${book.from} | 가격: ${book.value} | 저자: ${book.author}`;
+          bookDiv.textContent = `책 이름: ${book.name} | 출판사: ${book.from} | 가격: ${book.value} 
+          | 저자: ${book.author}`;
           bookListContainer.appendChild(bookDiv);
 
           const addToCartButton = document.createElement("button");
@@ -262,9 +267,9 @@
   // 이미 장바구니에 담긴 책인지 확인
   const isAlreadyInCart = cart.some(
     (cartBook) =>
-      (cartBook.name === book.name) && (cartBook.author === book.author) && (book.value === cartBook.value)
+      (cartBook.name === book.name) && (cartBook.author === book.author) && (book.value === 
+      cartBook.value)
   );
-
   if (isAlreadyInCart) {
     // 이미 장바구니에 있는 책이라면 알림을 띄우고 추가하지 않음
     alert(`${book.name}은 이미 장바구니에 담겨있습니다.`);
@@ -274,9 +279,7 @@
     // 알림 메시지 표시
     alert(`${book.name}가 장바구니에 추가 되었습니다.`);
     localStorage.setItem("cart", JSON.stringify(cart));
-
   }
-
   // 장바구니 데이터를 localStorage에 다시 저장
 }
 
