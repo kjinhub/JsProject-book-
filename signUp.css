@@ -18,35 +18,6 @@ body {
     align-items: center;
 }
 
-.login {
-    float: right;
-    width: 7%;
-}
-
-.login>* {
-    margin: 0% 1% 0% 1%;
-    color: darkgray;
-    text-decoration: none;
-    transition: 1s;
-}
-
-.login>#signI:hover {
-    color: white;
-}
-
-.login>#signU:hover {
-    color: white;
-}
-
-#signUpForm {
-    clear: both;
-    display: inline;
-    width: 35%;
-    float: right;
-    clear: both;
-    margin: 2% 0 50px 65%;
-}
-
 /* 헤더 스타일 */
 header {
     width: 100%;
@@ -87,6 +58,35 @@ nav a:hover {
 }
 
 .signUp-container h2 {
-    font-size: 1.6em;
-    margin-bottom: 1em;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.signUp-container div {
+    margin-bottom: 15px;
+}
+
+.signUp-container input{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.signUp-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover{
+    background-color: #454343;
 }
