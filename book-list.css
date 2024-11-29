@@ -10,29 +10,6 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-body {
-  flex: 1;
-}
-
-footer {
-  background-color: #333;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  width: 100%; /* 화면 너비 전체 사용 */
-  margin-top: auto; /* 페이지 내용 뒤에 위치하도록 설정 */
-}
-
 
 .login {
   float: right;
@@ -46,11 +23,9 @@ footer {
 }
 .login > #signI:hover {
   color: white;
-  /* font-size: large; */
 }
 .login > #signU:hover {
   color: white;
-  /* font-size: large; */
 }
 #signUpForm {
   clear: both;
@@ -69,20 +44,22 @@ footer {
   clear: both;
 }
 
-.login > #userIdDisplay {
+#userIdDisplay {
   position: absolute;
-  right: 3%;
+  right: 1%;
   top: 2%;
 }
-.login > #logOut {
+
+#logOut {
   position: absolute;
-  right: 3%;
+  right: 1%;
   top: 8%;
   clear: both;
 }
-.login > #userPointsDisplay {
+
+#userPointsDisplay {
   position: absolute;
-  right: 3%;
+  right: 1%;
   top: 5%;
 }
 
@@ -245,4 +222,18 @@ ul#cartlist li {
 
 ul#cartlist li:nth-child(even) {
   background-color: #f1f1f1;
+}
+
+#searchResult button {
+  padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#searchResult button:hover {
+  background-color: #218838;
 }

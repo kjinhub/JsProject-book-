@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href = "signIn.css">
+</head>
+<body>
+    <header>
+        <div>
+            <h1>중고 교재 거래 사이트</h1>
+            <nav>
+                <a href="main3.html" onclick="removeNumber()">홈</a>
+                <a href="book-list4.html" onclick="removeNumber()">교재 목록</a>
+                <a href="cart.html" onclick="removeNumber()">장바구니</a>
+            </nav>
+    </header>
+    <section class="signIn-container">
+        <div id="signInForm">
+            <h2>로그인</h2>
+            <div id="signInForm1">
+                <input type="text" id="signInId" placeholder="아이디" required />
+                <input type="password" id="signInPassword" placeholder="비밀번호" required />
+                <button onclick="signIn()">로그인</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 로그인
+        function signIn() {
+            const id = document.getElementById("signInId").value;
+            const password = document.getElementById("signInPassword").value;
+            const storedId = localStorage.getItem("userId");
+            const storedPassword = localStorage.getItem("userPassword");
+            const number = localStorage.getItem("number");
+
+            if (id === storedId && password === storedPassword) {
+                localStorage.setItem("loggedIn", "true");
+                if(number === "1"){
+                    window.location.href = "main3.html"
+                }else if(number === "2"){
+                    window.location.href = "book-list4.html"
+                }else{
+                    window.location.href = "cart.html"
+                }
+                localStorage.removeItem("number")
+                alert("로그인 되었습니다.")
+            } else {
+                alert("아이디 또는 비밀번호가 틀렸습니다.");
+            }
+        }
+        
+        function removeNumber() {
+            localStorage.removeItem("number")
+        }
+    </script>
+</body>
+</html>

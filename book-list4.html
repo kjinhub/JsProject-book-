@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="book-list.css" />
   </head>
   <body>
-
     <header>
       <div>
         <section class="login" id="signUpSection">
-            <a href="javascript:void(0)" id="signU" onclick="showSignUpForm()">회원가입</a>
+            <a href="signUp.html" id="signU" onclick="number()">회원가입</a>
         </section>
         <section class="login" id="signInSection">
-            <a href="javascript:void(0)" id="signI" onclick="showSignInForm()">로그인</a>
+            <a href="signIn.html" id="signI" onclick="number()">로그인</a>
     </div>
     </section>
     <section class="login" id="logoutSection" style="display: none">
@@ -32,30 +31,9 @@
       </nav>
     </header>
     <!-- 헤더 -->
-    <!-- 회원가입 폼 -->
-    <div id="signUpForm" style="display: none">
-      <h2>회원가입</h2>
-      <div id="signUpForm1">
-          <input type="text" id="signUpId" placeholder="아이디" required />
-          <input type="password" id="signUpPassword" placeholder="비밀번호" required />
-          <button onclick="signUp()">회원가입</button>
-          <button onclick="hideSignUpForm()">취소</button>
-      </div>
-  </div>
-
-  <!-- 로그인 폼 -->
-  <div id="signInForm" style="display: none">
-      <h2>로그인</h2>
-      <div id="signInForm1">
-          <input type="text" id="signInId" placeholder="아이디" required />
-          <input type="password" id="signInPassword" placeholder="비밀번호" required />
-          <button onclick="signIn()">로그인</button>
-          <button onclick="hideSignInForm()">취소</button>
-      </div>
-  </div>
 
     <section id="searchBody">
-      <form action=""><h1>검색</h1></form>
+      <form action="">검색</form>
       <div>
         <label for="" id="search">책 검색</label>
         <input
@@ -90,9 +68,7 @@
         <!-- 교재 목록 표시 영역 -->
         <div id="book-list-container"></div>
     </section>
-    <footer>
-      <p>&copy; 2024 중고 교재 거래 사이트. 모든 권리 보유.</p>
-    </footer>
+
     <script>
       
       // 초기화 시 로그인 상태 체크
@@ -119,39 +95,9 @@
             }
         };
 
-        // 회원가입
-        function signUp() {
-            const id = document.getElementById("signUpId").value;
-            const password = document.getElementById("signUpPassword").value;
-
-            if (!id || !password) {
-                alert("아이디와 비밀번호를 입력하세요.");
-                return;
-            }
-
-            // localStorage에 회원 정보 저장
-            localStorage.setItem("userId", id);
-            localStorage.setItem("userPassword", password);
-            localStorage.setItem("userPoints", 0); // 기본 포인트 0 설정
-
-            alert("회원가입이 완료되었습니다!");
-            hideSignUpForm();
-        }
-
-        // 로그인
-        function signIn() {
-            const id = document.getElementById("signInId").value;
-            const password = document.getElementById("signInPassword").value;
-            const storedId = localStorage.getItem("userId");
-            const storedPassword = localStorage.getItem("userPassword");
-
-            if (id === storedId && password === storedPassword) {
-                localStorage.setItem("loggedIn", "true");
-                alert("로그인 성공!");
-                location.reload(); // 페이지 새로고침하여 로그인 상태 반영
-            } else {
-                alert("아이디 또는 비밀번호가 틀렸습니다.");
-            }
+        // 로그인이나 회원가입 누를 시 파일 번호 지정
+        function number() {
+            localStorage.setItem("number", "2"); 
         }
 
         // 로그아웃
@@ -161,29 +107,10 @@
             location.reload(); // 페이지 새로고침하여 로그아웃 상태 반영
         }
 
-        // 로그인 폼과 회원가입 폼을 서로 다르게 보이게 하기
-        function showSignUpForm() {
-            document.getElementById("signInForm").style.display = "none"; // 로그인 폼 숨기기
-            document.getElementById("signUpForm").style.display = "block"; // 회원가입 폼 보이기
-        }
-
-        function showSignInForm() {
-            document.getElementById("signUpForm").style.display = "none"; // 회원가입 폼 숨기기
-            document.getElementById("signInForm").style.display = "block"; // 로그인 폼 보이기
-        }
-
-        function hideSignUpForm() {
-            document.getElementById("signUpForm").style.display = "none";
-        }
-
-        function hideSignInForm() {
-            document.getElementById("signInForm").style.display = "none";
-        }
-
       // let cart = []; // 장바구니 배열
 
       //==================================================================================
-      // 검색 기능
+     // 검색 기능
   function searchBook() {
     // 검색 입력 값 가져오기
     const searchTitle = document.getElementById("searchTitle").value;
@@ -212,6 +139,7 @@
     });
 
     const searchResult = document.getElementById("searchResult");
+
     // 검색 결과 초기화
     searchResult.innerHTML = "";
 
@@ -219,21 +147,18 @@
       results.forEach((result, index) => {
         // 각각의 책 정보를 고유하게 처리
         searchResult.innerHTML += `
-        찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: 
-        ${result.author}
-        <button style="padding: 6px 12px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;" onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>`;
+        찾은 책: ${result.name} - 출판사: ${result.from} - 가격: ${result.value}원 - 저자: ${result.author}
+        <button onclick='addBook(${JSON.stringify(result)})'>장바구니에 담기</button><br>
+      `;
       });
     } else {
       searchResult.textContent = "해당 책을 찾을 수 없습니다.";
     }
   }
+
+
       //==================================================================================
+
       // 저장된 교재 목록을 가져와서 화면에 표시하는 함수
       function loadBooks() {
         const bookListContainer = document.getElementById("book-list-container");
@@ -242,8 +167,7 @@
         // 책 목록을 반복하여 화면에 추가
         books.forEach((book, index) => {
           const bookDiv = document.createElement("div");
-          bookDiv.textContent = `책 이름: ${book.name} | 출판사: ${book.from} | 가격: ${book.value} 
-          | 저자: ${book.author}`;
+          bookDiv.textContent = `책 이름: ${book.name} | 출판사: ${book.from} | 가격: ${book.value} | 저자: ${book.author}`;
           bookListContainer.appendChild(bookDiv);
 
           const addToCartButton = document.createElement("button");
@@ -267,9 +191,9 @@
   // 이미 장바구니에 담긴 책인지 확인
   const isAlreadyInCart = cart.some(
     (cartBook) =>
-      (cartBook.name === book.name) && (cartBook.author === book.author) && (book.value === 
-      cartBook.value)
+      (cartBook.name === book.name) && (cartBook.author === book.author) && (book.value === cartBook.value)
   );
+
   if (isAlreadyInCart) {
     // 이미 장바구니에 있는 책이라면 알림을 띄우고 추가하지 않음
     alert(`${book.name}은 이미 장바구니에 담겨있습니다.`);
@@ -279,7 +203,9 @@
     // 알림 메시지 표시
     alert(`${book.name}가 장바구니에 추가 되었습니다.`);
     localStorage.setItem("cart", JSON.stringify(cart));
+
   }
+
   // 장바구니 데이터를 localStorage에 다시 저장
 }
 

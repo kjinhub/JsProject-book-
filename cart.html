@@ -10,10 +10,10 @@
     <header>
       <div>
         <section class="login" id="signUpSection">
-          <a href="javascript:void(0)" id="signU" onclick="showSignUpForm()">회원가입</a>
+          <a href="signUp.html" id="signU" onclick="number()">회원가입</a>
         </section>
         <section class="login" id="signInSection">
-          <a href="javascript:void(0)" id="signI" onclick="showSignInForm()">로그인</a>
+          <a href="signIn.html" id="signI" onclick="number()">로그인</a>
     </div>
     </section>
     <section class="login" id="logoutSection" style="display: none">
@@ -30,28 +30,6 @@
       </nav>
     </header>
     
-    <!-- 회원가입 폼 -->
-    <div id="signUpForm" style="display: none">
-      <h2>회원가입</h2>
-      <div id="signUpForm1">
-          <input type="text" id="signUpId" placeholder="아이디" required />
-          <input type="password" id="signUpPassword" placeholder="비밀번호" required />
-          <button onclick="signUp()">회원가입</button>
-          <button onclick="hideSignUpForm()">취소</button>
-      </div>
-  </div>
-
-  <!-- 로그인 폼 -->
-  <div id="signInForm" style="display: none">
-      <h2>로그인</h2>
-      <div id="signInForm1">
-          <input type="text" id="signInId" placeholder="아이디" required />
-          <input type="password" id="signInPassword" placeholder="비밀번호" required />
-          <button onclick="signIn()">로그인</button>
-          <button onclick="hideSignInForm()">취소</button>
-      </div>
-  </div>
-
     <section class="cart-container">
       <h2>내 장바구니</h2>
       <div
@@ -60,9 +38,7 @@
       ></div>
       <button id="removeAll" onclick="clearCart()">장바구니 비우기</button>
     </section>
-    <footer>
-      <p>&copy; 2024 중고 교재 거래 사이트. 모든 권리 보유.</p>
-    </footer>
+
     <script>
       // 초기화 시 로그인 상태 체크
       window.onload = function () {
@@ -89,66 +65,15 @@
         }
       };
 
-      // 회원가입
-      function signUp() {
-        const id = document.getElementById("signUpId").value;
-        const password = document.getElementById("signUpPassword").value;
-
-        if (!id || !password) {
-          alert("아이디와 비밀번호를 입력하세요.");
-          return;
-        }
-
-        // localStorage에 회원 정보 저장
-        localStorage.setItem("userId", id);
-        localStorage.setItem("userPassword", password);
-        localStorage.setItem("userPoints", 0); // 기본 포인트 0 설정
-
-        alert("회원가입이 완료되었습니다!");
-        hideSignUpForm();
-      }
-
-      // 로그인
-      function signIn() {
-        const id = document.getElementById("signInId").value;
-        const password = document.getElementById("signInPassword").value;
-        const storedId = localStorage.getItem("userId");
-        const storedPassword = localStorage.getItem("userPassword");
-
-        if (id === storedId && password === storedPassword) {
-          localStorage.setItem("loggedIn", "true");
-          alert("로그인 성공!");
-          location.reload(); // 페이지 새로고침하여 로그인 상태 반영
-        } else {
-          alert("아이디 또는 비밀번호가 틀렸습니다.");
-        }
-      }
-
       // 로그아웃
       function logout() {
         localStorage.removeItem("loggedIn");
         location.reload(); // 페이지 새로고침하여 로그아웃 상태 반영
       }
-
-      // 로그인 폼과 회원가입 폼을 서로 다르게 보이게 하기
-      function showSignUpForm() {
-        document.getElementById("signInForm").style.display = "none"; // 로그인 폼 숨기기
-        document.getElementById("signUpForm").style.display = "block"; // 회원가입 폼 보이기
+      // 로그인이나 회원가입 누를 시 파일 번호 지정
+      function number() {
+        localStorage.setItem("number", 3); 
       }
-
-      function showSignInForm() {
-        document.getElementById("signUpForm").style.display = "none"; // 회원가입 폼 숨기기
-        document.getElementById("signInForm").style.display = "block"; // 로그인 폼 보이기
-      }
-
-      function hideSignUpForm() {
-        document.getElementById("signUpForm").style.display = "none";
-      }
-
-      function hideSignInForm() {
-        document.getElementById("signInForm").style.display = "none";
-      }
- /* 최신 */
 
       // localStorage에서 장바구니 항목 불러오기 및 렌더링
   // 장바구니 로드
@@ -182,7 +107,7 @@
     }
        // 장바구니 항목 삭제
     
-       function purchaseItem(index) {
+ function purchaseItem(index) {
   const isLoggedIn = localStorage.getItem("loggedIn");
   let updatedPoints = parseInt(localStorage.getItem("userPoints")) || 0;
   if(isLoggedIn === "true"){
@@ -198,7 +123,6 @@
     alert("로그인을 해주세요.")
   }
 }
-
 
 // 포인트 감소
 function reducePoint(index) {

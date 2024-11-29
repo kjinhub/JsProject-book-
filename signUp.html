@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그아웃</title>
+    <link rel = "stylesheet" href = "signUp.css">
+</head>
+<body>
+    <header>
+        <br><br>
+        <h1>중고 교재 거래 사이트</h1>
+        <nav>
+            <a href="main3.html" onclick="removeNumber()">홈</a>
+            <a href="book-list4.html" onclick="removeNumber()">교재 목록</a>
+            <a href="cart.html" onclick="removeNumber()">장바구니</a>
+        </nav>
+    </header>
+    <section class="signUp-container">
+    <div id="signUpForm">
+        <h2>회원가입</h2>
+        <div id="signUpForm1">
+            <input type="text" id="signUpId" placeholder="아이디" required />
+            <input type="password" id="signUpPassword" placeholder="비밀번호" required />
+            <button onclick="signUp()">회원가입</button>
+        </div>
+    </div>
+    </section>
+    
+    <script>
+        // 회원가입
+        function signUp() {
+            const id = document.getElementById("signUpId").value;
+            const password = document.getElementById("signUpPassword").value;
+            const number = localStorage.getItem("number");
+            if (!id || !password) {
+                alert("아이디와 비밀번호를 입력하세요.");
+                return;
+            }
+
+            // localStorage에 회원 정보 저장
+            localStorage.setItem("userId", id);
+            localStorage.setItem("userPassword", password);
+            localStorage.setItem("userPoints", 0); // 기본 포인트 0 설정
+            if(number === "1"){
+                window.location.href = "main3.html"
+            }else if(number === "2"){
+                window.location.href = "book-list4.html"
+            }else{
+                window.location.href = "cart.html"
+            }
+            alert("회원가입이 완료되었습니다!");
+            localStorage.removeItem("number")
+        }
+        function removeNumber() {
+            localStorage.removeItem("number")
+        }
+    </script>
+</body>
+</html>

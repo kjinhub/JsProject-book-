@@ -11,34 +11,33 @@ body {
   transition: 0.5s;
 }
 
-.login > * {
+.login>* {
   margin: 0% 1% 0% 1%;
   color: darkgray;
   text-decoration: none;
   transition: 1s;
 }
 
-.login > #signI:hover {
+.login>#signI:hover {
   color: white;
 }
 
-.login > #signU:hover {
+.login>#signU:hover {
   color: white;
 }
 
 #userIdDisplay {
   position: absolute;
-  right: 2%;
-  top: 10%;
+  right: 30px;
+  top: 20px;
 }
 
-.login > #logOut {
+.login>#logOut {
   position: absolute;
-  right: 2%;
-  top: 40%;
+  right: 30px;
+  top: 70px;
   clear: both;
 }
- /* 최신 */
 
 header {
   background-color: #333;
@@ -62,18 +61,15 @@ footer {
 #title {
   text-align: center;
 }
+
 nav a {
-  color: rgb(255, 255, 255);
+  color: white;
   text-decoration: none;
-  margin: 0 1rem;
-}
-nav a:hover {
-  color: rgb(212, 212, 212);
-  /* text-decoration: none; */
   margin: 0 1rem;
 }
 
 .container {
+
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
@@ -164,24 +160,10 @@ button:hover {
   background-color: #454343;
 }
 
-/* 로그인 폼, 회원가입 폼 */
-#signInForm,
-#signUpForm {
+.login>#userPointsDisplay {
   position: absolute;
-  top: 5px;
-  right: 0px;
-  width: 250px;
-  color: white;
-  padding: 20px;
-  border-radius: 8px;
-  display: none;
-  z-index: 9999;
-}
-
-.login > #userPointsDisplay {
-  position: absolute;
-  right: 2%;
-  top: 25%;
+  right: 30px;
+  top: 45px;
 }
 
 #signInBt:hover,
